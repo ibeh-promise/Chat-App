@@ -1,0 +1,85 @@
+<!DOCTYPE Html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>chathouse | profile</title>
+    <script src="https://kit.fontawesome.com/e8c960f852.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/asset/css/style.css">
+    <link rel="stylesheet" href="/asset/css/profile.css">
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <nav class="navbar navbar-dark bg-dark fixed-top shadow">
+          <div class="container-fluid">
+            <div class="container">
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="d-flex align-items-center">
+
+                  <img src="../asset/images/message_icon.png" alt="message_icon" class="img-fluid w-12" id="main-logo" />
+                  <p class="mt-3" id="dbName"></p>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+              </div>
+            </div>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><img src="../asset/images/message_icon.png" alt="message_icon" class="img-fluid w-12"></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <h5>About Us</h5>
+                <p>Chat House was created by proxy tech. It is built to connect people all around the world. We hope you enjoy our app!</p>
+                <a href="../home" class="btn text-white"><i class="fa-solid fa-home" style="color: blue;"></i>  Home</a> <br>
+                <a href="../profile" class="btn text-white"><i class="fa-solid fa-user" style="color: blue;"></i>  Profile</a> <br>
+                  <a href="../logout" class="btn text-white"><i class="fa-solid fa-arrow-right-to-bracket" style="color: blue;"></i>  Logout </a>                
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main>
+    <div class="container-fuid w-100">
+      <div class="container d-flex mt-100 mr-20 align-items-center">
+        <div class="fs-20">
+          <i class="fa-solid fa-user-circle w-50" style="color: #FFD43B; font-size: 130px;">
+          </i>
+        </div>
+        <div class="datas">
+          <div class="d-flex">
+          <h1 id="dataName"></h1>
+            <i class="fa-solid fa-pencil" style="color: #FFD43B;"></i>
+          </div>
+          <div class="d-flex">
+            <p id="dataEmail"></p>
+            <i class="fa-solid fa-pencil" style="color: #FFD43B;"></i>
+          </div>
+          <button class="btn btn-primary profile-btn" id="btn-delete" type="submit">DELETE ACCOUNT <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+        <div class="d-block m-auto w-100">
+          <div class=" position-fixed container bg-dark modal-div">
+          <p>Are you sure you want to delete your account?</p>
+            <div class="d-flex justify-content-evenly align-items-center">
+              <button class="btn btn-primary profile-btn mx-5"  id="abort-btn">CANCEL</button>
+              <form action="/delete" method="get">
+              <button class="btn btn-danger profile-btn mx-5" type="submit"><i class="fa-solid fa-trash text-white"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="../asset/js/profile.js"></script>
+  </body>
+</html>

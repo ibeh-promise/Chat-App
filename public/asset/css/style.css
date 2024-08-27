@@ -1,0 +1,153 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+body{
+  background: #343541;
+  color: white;
+  scroll-behavior: smooth;
+}
+
+#chat-form{
+  display: relative;
+}
+
+#send-box{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.wrapper{
+  display: flex;
+  padding: 10px;
+  background: #343541;
+  border-radius: 5px;
+}
+
+form{
+  display: flex;
+  jusitify-content: center;
+  align-items: center;
+  width: 100%;
+}
+form .chat-input{
+  padding: 10px;
+  font-size: 17px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background: none;
+  color: white;
+  resize: none;
+  width : 100%;
+  /* box-shadow: 0 -1px 2px rgba(0,0,0,0.2); */
+}
+form button, #image-button{
+  background : transparent ;
+  width: 15%;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+ } 
+#send-button{
+  display: none;
+}
+#image-button{
+  display: block;
+  margin: auto;
+}
+.fa-image{
+  font-size: 30px;
+}
+img{
+  width: 60px;
+  hieght: 60px;
+  /* border-radius: 50%; */
+  margin-left: 10px;
+}
+.img-settings{
+  width: 30px;
+}
+#chat-body{
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 100%;
+  height: 93%;
+  padding: 100px 10px 10px 20px;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.cards{
+  background: #343541;
+  color:white;
+  padding: 10px;
+  border-radius: 5px;
+  width: fit-content;
+  margin-bottom : 15px;
+  max-width: 80%;
+  min-width: 100px;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+.c-1{
+  display: flex-end;
+  
+}
+.cards2{
+  background: transparent;
+  border: 1px solid white;
+  color:white;
+  padding: 10px;
+  border-radius: 5px;
+  width: fit-content;
+  margin-bottom : 15px;
+  max-width: 80%;
+  min-width: 100px;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+.option{
+  width: 100%;
+  height: 35;
+  display: none;
+  justify-content: end;
+  position: fixed;
+  right: 0;
+  margin-right: 10px;
+}
+.option2{
+  width: 100%;
+  height: 35;
+  display: none;
+  justify-content: end;
+  position: fixed;
+  right: 0;
+  margin-right: 10px;
+}
+.option3{
+  width: 50px;
+  height: 50px;
+  display: block;
+  justify-content: end;
+  position: fixed;
+  text-align: center;
+  right: 0;
+  top: 70%;
+  margin-right: 10px;
+}
+.option2 p{
+  margin: 10px;
+}
+.border-black{
+  border: 1px solid black;
+}

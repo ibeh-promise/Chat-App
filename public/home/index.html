@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>chathouse | home</title>
+    <script src="https://kit.fontawesome.com/e8c960f852.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/asset/css/style.css">
+  </head>
+  <body class="bg-dark text-white">
+    <header>
+      <div class="navbar">
+        <nav class="navbar navbar-dark bg-dark fixed-top shadow">
+          <div class="container-fluid">
+            <div class="container">
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="d-flex align-items-center">
+                  <i class="fa-solid fa-arrow-left fa-5 my-2" id="back-btn"></i>
+                  <img src="../asset/images/message_icon.png" alt="message_icon" class="img-fluid w-12">
+
+                  <p class="mt-3" id="dbName"></p>
+                </div>
+                 
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+              </div>
+            </div>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><img src="../asset/images/message_icon.png" alt="message_icon" class="img-fluid w-12"></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <h5>About Us</h5>
+                <p>Chat House was created by proxy tech. It is built to connect people all around the world. We hope you enjoy our app!</p>
+                
+                <a href="../home" class="btn text-white"><i class="fa-solid fa-home" style="color: blue;"></i>  Home</a> <br>
+                <a href="../profile" class="btn text-white"><i class="fa-solid fa-user" style="color: blue;"></i>  Profile</a> <br>
+                  <a href="../logout" class="btn text-white"><i class="fa-solid fa-arrow-right-to-bracket" style="color: blue;"></i>  Logout </a>                
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+  </header>
+    <main>
+     <div id="chat-container h-100 bg-dark">  
+       <div id="chat-body" class="text-white">
+        <div class="option" id="option">
+          <div class="w-50 rounded border-black bg-dark wrapper">
+            <p class="text-danger text-center d-block m-auto" id="delete-msg">delete</p>
+          </div>
+        </div>
+         <div class="option2" id="option2">
+           <div class="w-50 rounded  border-black bg-dark d-block">
+             <p class="text-white text-center d-block " id="copy-msg"><i class="fa-solid fa-copy"></i> copy</p>
+             <p class="text-danger text-center d-block " id="delete-msg2">delete</p>
+           </div>
+         </div>
+       </div>
+    <div id="chat-form bg-dark">
+       <div id="send-box" class="bg-dark">
+         <form action="" id="form">
+           <div class=" wrapper w-100">
+             <div id="image-button"><i class="fa-solid fa-image" style="color: #FFD43B;"></i></div>
+            <input type="text" id="message-input" class="chat-input" placeholder="say something..."></input>
+    <button id="send-button" type="submit"><i class="fa-solid fa-paper-plane fa-beat" style="color: #FFD43B;"></i></button>
+           </div>
+         </form>   
+         </div>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../asset/js/home.js"></script>
+  </body>
+</html>

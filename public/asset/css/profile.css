@@ -1,0 +1,30 @@
+*{
+  magin: 0;
+  padding: 0;
+}
+main{
+  margin-top: 100px
+}
+
+.datas{
+  margin-left: 20px;
+}
+
+p{
+  margin: 0;
+}
+.profile-btn{
+  margin-top: 20px;
+  font-weight: 700;
+  width: 100%;
+}
+.modal-div{
+  display : none;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  width: 100%;
+  top: 150px;
+  left: 0px;
+  padding-top: 20px;
+}
