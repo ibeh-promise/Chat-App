@@ -235,13 +235,8 @@ app.post("/createRoom/api", verify, (req, res) => {
   const token = req.cookies.token;
   const decodedToken = jwtDecode(token);
   const emailName = decodedToken.email.split("@")[0];
-  const userName = decodedToken.name;
-  console.log(userName);
-  const { name } = req.body;
-  console.log("name " + name);
+  const { name, roomId } = req.body; // <-- Accept roomId from frontend
   dbTable = emailName + Date.now();
-  const link = name + Date.now();
-  console.log("user " + dbTable, link);
   const isAdmin = true;
   connection.query(
     "CREATE TABLE IF NOT EXISTS " +
@@ -252,24 +247,11 @@ app.post("/createRoom/api", verify, (req, res) => {
         console.error(err);
         res.status(500).send("Internal Server Error");
       } else {
-        let sql;
-        let dataArr;
-        let password;
-        console.log("table created");
-        if (!req.body.password){
-          sql = "INSERT INTO " +
-              dbTable +
-              " (email, isAdmin, isMutable, tablename) VALUES ($1, $2, $3, $4)"
-          dataArr = [decodedToken.email, isAdmin, isMutable, name]
-        }else{
-          password = req.body.password;
-          console.log("password " , req.body.password);
-          sql = "INSERT INTO " +
-            dbTable +
-            " (email, isAdmin, isMutable, tablename, password) VALUES ($1, $2, $3, $4, $5)"
-          dataArr = [decodedToken.email, isAdmin, isMutable, name, password]
-        }
-
+        // Insert into the room table
+        const sql = "INSERT INTO " +
+          dbTable +
+          " (email, isAdmin, isMutable, tablename, password) VALUES ($1, $2, $3, $4, $5)";
+        const dataArr = [decodedToken.email, isAdmin, isMutable, name, roomId];
 
         connection.query(
           sql, dataArr, (err, result) => {
@@ -277,9 +259,10 @@ app.post("/createRoom/api", verify, (req, res) => {
               console.error(err);
               res.status(500).redirect("/home");
             }
+            // Insert into the chat table, store the roomId
             connection.query(
-              "INSERT INTO chat (name, tablename, isMutable, admin, isadmin, currenttable) VALUES ($1, $2, $3, $4, $5, $6)",
-              [name, dbTable, isMutable, emailName, isAdmin, dbTable],
+              "INSERT INTO chat (name, tablename, isMutable, admin, isadmin, currenttable, password) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+              [name, dbTable, isMutable, emailName, isAdmin, dbTable, roomId],
               (err, result) => {
                 if (err) {
                   console.error(err);
@@ -341,27 +324,38 @@ app.get("/home/api", verify, (req, res) => {
 });
 
 app.put("/join/api", verify, (req, res) => {
-  console.log("PUT /join/api called");
-  console.log("Request body:", req.body);
+  const { name, isMutable, roomId } = req.body; // Accept roomId from frontend
 
-  const { name, isMutable } = req.body;
-
-  if (!name || typeof isMutable !== "boolean") {
+  if (!name || typeof isMutable !== "boolean" || !roomId) {
     return res.status(400).send("Invalid request payload");
   }
 
+  // Check if roomId matches
   connection.query(
-    "UPDATE chat SET currenttable = $1 WHERE isMutable = $2",
-    [name, isMutable],
+    "SELECT * FROM chat WHERE name = $1 AND password = $2",
+    [name, roomId],
     (err, result) => {
       if (err) {
         console.error("Database query error:", err);
         return res.status(500).send("Internal Server Error");
-      } else {
-        console.log("Database query result:", result);
-        res.sendFile(path.join(__dirname, "/public/home/index.html"));
       }
-    },
+      if (result.rows.length === 0) {
+        return res.status(401).send("Invalid Room ID");
+      }
+      // Room ID matches, update currenttable
+      connection.query(
+        "UPDATE chat SET currenttable = $1 WHERE isMutable = $2",
+        [name, isMutable],
+        (err, result) => {
+          if (err) {
+            console.error("Database query error:", err);
+            return res.status(500).send("Internal Server Error");
+          } else {
+            res.sendFile(path.join(__dirname, "/public/home/index.html"));
+          }
+        },
+      );
+    }
   );
 });
 
@@ -544,5 +538,3 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
 });
-
-// why is the password null, 
