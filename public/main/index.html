@@ -1,101 +1,494 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no,">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>chathouse | home</title>
-    <script src="https://kit.fontawesome.com/e8c960f852.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/asset/css/style.css">
-    <link rel="stylesheet" href="/asset/css/main.css">
+    <title>ChatHouse | Connect with the World</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+      :root {
+        --primary: #4e6fff;
+        --secondary: #8a63d2;
+        --dark: #121826;
+        --light: #f8f9fa;
+        --gray: #6c757d;
+      }
+      
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, var(--dark) 0%, #1a243a 100%);
+        color: var(--light);
+        padding-top: 70px; /* Space for fixed navbar */
+      }
+      
+      /* Navigation */
+      .navbar {
+        background: rgba(18, 24, 38, 0.95) !important;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0.8rem 0;
+      }
+      
+      .app-logo {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(145deg, var(--primary), var(--secondary));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+      }
+      
+      .app-logo i {
+        font-size: 20px;
+        color: white;
+      }
+      
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+      }
+      
+      .navbar-toggler {
+        border: none;
+        font-size: 1.2rem;
+      }
+      
+      /* Offcanvas */
+      .offcanvas {
+        background: rgba(18, 24, 38, 0.98) !important;
+        backdrop-filter: blur(10px);
+      }
+      
+      .offcanvas-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .offcanvas-body .btn {
+        text-align: left;
+        padding: 0.8rem 1rem;
+        border-radius: 10px;
+        margin-bottom: 0.5rem;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+      
+      .offcanvas-body .btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      /* Main Content */
+      .search-container {
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+      
+      .search-input {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        padding-right: 60px;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+      
+      .search-input:focus {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(78, 111, 255, 0.2);
+        color: white;
+      }
+      
+      .create-room-btn {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(78, 111, 255, 0.4);
+        transition: all 0.3s ease;
+      }
+      
+      .create-room-btn:hover {
+        transform: translateY(-50%) scale(1.05);
+        box-shadow: 0 8px 20px rgba(78, 111, 255, 0.6);
+      }
+      
+      /* Room Cards */
+      .rooms-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      
+      .room-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      
+      .room-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+      
+      .room-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      
+      .room-name {
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin: 0;
+      }
+      
+      .room-members {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+      }
+      
+      .room-members i {
+        margin-right: 0.5rem;
+      }
+      
+      .room-description {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+      }
+      
+      .room-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .room-date {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85rem;
+      }
+      
+      .room-status {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+      
+      .status-public {
+        background: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+      }
+      
+      .status-private {
+        background: rgba(220, 53, 69, 0.2);
+        color: #dc3545;
+      }
+      
+      /* Modal */
+      .modal-content {
+        background: rgba(18, 24, 38, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+      
+      .modal-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .modal-title {
+        font-weight: 600;
+      }
+      
+      .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+      
+      .modal-footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.5rem;
+      }
+      
+      .btn-primary {
+        background: linear-gradient(to right, var(--primary), var-secondary));
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.5rem;
+      }
+      
+      /* Empty state */
+      .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+      
+      .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .empty-state p {
+        font-size: 1.1rem;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .rooms-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
-  <body class="bg-dark text-white">
+  <body>
     <header>
-      <div class="navbar">
-        <nav class="navbar navbar-dark bg-dark fixed-top shadow">
-          <div class="container-fluid">
-            <div class="container">
-              <div class="d-flex justify-content-between align-items-center mt-2">
-                <div class="d-flex align-items-center">
-
-                  <img src="../asset/images/message_icon.png" alt="message_icon" class="img-fluid w-12">
-
-                  <p class="mt-3" id="dbName"></p>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-                  <i class="fa-solid fa-ellipsis-vertical"></i>
-                </button>
-              </div>
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <div class="app-logo">
+              <i class="fas fa-comments"></i>
             </div>
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-              <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><img src="../asset/images/message_icon.png" alt="message_icon" class="img-fluid w-12"></h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div>
-              <div class="offcanvas-body">
-                <h5>About Us</h5>
-                <p>Chat House was created by proxy tech. It is built to connect people all around the world. We hope you enjoy our app!</p>
-                <strong class="btn text-white"><i class="fa-solid fa-home" style="color: blue;"></i> Home</strong> <br>
-                <a href="../profile" class="btn text-white"><i class="fa-solid fa-user" style="color: blue;"></i>  Profile</a> <br>
-                  <a href="../logout" class="btn text-white"><i class="fa-solid fa-arrow-right-to-bracket" style="color: blue;"></i>  Logout </a>                
+            ChatHouse
+          </a>
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            <i class="fas fa-ellipsis-vertical"></i>
+          </button>
+          
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title">
+                <div class="app-logo">
+                  <i class="fas fa-comments"></i>
+                </div>
+                ChatHouse
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+              <h5>About Us</h5>
+              <p class="text-muted">ChatHouse was created by Proxy Tech to connect people worldwide. We hope you enjoy our app!</p>
+              
+              <div class="mt-4">
+                <a href="#" class="btn text-white">
+                  <i class="fas fa-home me-2" style="color: var(--primary);"></i> Home
+                </a>
+                <a href="../profile" class="btn text-white">
+                  <i class="fas fa-user me-2" style="color: var(--primary);"></i> Profile
+                </a>
+                <a href="../logout" class="btn text-white">
+                  <i class="fas fa-sign-out-alt me-2" style="color: var(--primary);"></i> Logout
+                </a>
               </div>
             </div>
           </div>
-        </nav>
-      </div>
-  </header>
-    <main>
-      <div class="container-fluid">
-        <div class="container ">
-          <div class="w-100 d-flex justify-content-between align-items-center">
-            <input type="search" name="search" value="" placeholder="Search for available rooms" class="form-control w-100 rounded-pill p-25 text-center" id="search-el" readOnly/>
-            
-          <button class="option3 btn btn-primary fs-2 w-20 m-50" id="create-button">+</button>
-            
-          </div>              
-          <btn class="option" id="option">
-             <div class="w-50 rounded  border-black bg-dark d-block">
-               <p class="text-danger text-center d-block " id="delete-msg2">delete</p>
-             </div>
-           </btn>
-          <p class="fs-15 m-20 text-center text-secondary" id="message"></p>
-          <div class="d-block m-auto " id="createRoomBody"></div>
-
-          <div class=" d-none w-100 h-100 bg-dark t-100" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Create Room</h5>
-                 <p class="modal-title text-secondary d-block my-auto mx-2 ">Public</p>
-                  <input type="checkbox" name="check" id="check" class="form-check-input d-block my-auto" checked>
-
-                </div>
-                <form method="POST" action="/createRoom/api/" class="d-block w-100">
-                <div class="modal-body">
-                  <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Room Name</label>
-                    <input type="text" class="form-control" name="name" id="roomName" required>
-                  </div>
-                  <div class="mb-3" id="room-password">
-                    <label for="recipient-password" class="col-form-label">Room ID</label>
-                    <input type="text" class="form-control" name="password" id="roomPassword">
-                  </div>
-                </div>
-                <div class="modal-footer w-100">
-                  <button type="button" class="btn btn-secondary text-center w-40" id="cancel-button">Close</button>
-                  <button type="submit" class="btn btn-primary text-center m-2 w-40" id="createRoom">Create</button>
         </div>
-                </form>
-      </div>  
+      </nav>
+    </header>
+    
+    <main class="container mt-4">
+      <div class="search-container">
+        <input type="search" placeholder="Search for available rooms" class="search-input" id="search-el">
+        <button class="create-room-btn" id="create-button">
+          <i class="fas fa-plus"></i>
+        </button>
       </div>
-    </div>
+      
+      <p class="text-center text-muted" id="message">Showing all available rooms</p>
+      
+      <div class="rooms-container" id="roomsContainer">
+        <!-- Room cards will be dynamically inserted here -->
+        <div class="room-card">
+          <div class="room-header">
+            <h3 class="room-name">General Chat</h3>
+            <span class="room-status status-public">Public</span>
+          </div>
+          <p class="room-description">A place for general discussions and meeting new people from around the world.</p>
+          <div class="room-footer">
+            <div class="room-members">
+              <i class="fas fa-users"></i> 243 online
+            </div>
+            <div class="room-date">Created: 12/05/2023</div>
+          </div>
         </div>
+        
+        <div class="room-card">
+          <div class="room-header">
+            <h3 class="room-name">Tech Enthusiasts</h3>
+            <span class="room-status status-public">Public</span>
+          </div>
+          <p class="room-description">Discuss the latest technology trends, programming, and innovations.</p>
+          <div class="room-footer">
+            <div class="room-members">
+              <i class="fas fa-users"></i> 187 online
+            </div>
+            <div class="room-date">Created: 18/06/2023</div>
+          </div>
+        </div>
+        
+        <div class="room-card">
+          <div class="room-header">
+            <h3 class="room-name">Gaming Zone</h3>
+            <span class="room-status status-private">Private</span>
+          </div>
+          <p class="room-description">For gamers to connect, share strategies, and find teammates.</p>
+          <div class="room-footer">
+            <div class="room-members">
+              <i class="fas fa-users"></i> 156 online
+            </div>
+            <div class="room-date">Created: 22/07/2023</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Create Room Modal -->
+      <div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Create Room</h5>
+              <div class="form-check form-switch ms-auto">
+                <input class="form-check-input" type="checkbox" id="roomVisibility" checked>
+                <label class="form-check-label" for="roomVisibility">Public</label>
+              </div>
+            </div>
+            <form method="POST" action="/createRoom/api/">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="roomName" class="form-label">Room Name</label>
+                  <input type="text" class="form-control" name="name" id="roomName" required>
+                </div>
+                <div class="mb-3" id="room-password">
+                  <label for="roomPassword" class="form-label">Room ID (Password)</label>
+                  <input type="text" class="form-control" name="password" id="roomPassword" placeholder="Optional for public rooms">
+                  <div class="form-text">Private rooms require a password for entry</div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Room</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script src="../asset/js/main.js"></script>
+
+    <!-- Bootstrap & Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const createButton = document.getElementById('create-button');
+        const createModal = new bootstrap.Modal(document.getElementById('createModal'));
+        const roomVisibility = document.getElementById('roomVisibility');
+        const roomPasswordField = document.getElementById('room-password');
+        
+        // Toggle room visibility
+        roomVisibility.addEventListener('change', function() {
+          if (this.checked) {
+            document.querySelector('.form-check-label').textContent = 'Public';
+            roomPasswordField.querySelector('.form-text').textContent = 'Optional for public rooms';
+          } else {
+            document.querySelector('.form-check-label').textContent = 'Private';
+            roomPasswordField.querySelector('.form-text').textContent = 'Required for private rooms';
+          }
+        });
+        
+        // Show create room modal
+        createButton.addEventListener('click', function() {
+          createModal.show();
+        });
+        
+        // Sample room data (in a real app, this would come from an API)
+        const sampleRooms = [
+          {
+            name: "Music Lovers",
+            isPublic: true,
+            description: "Share your favorite music and discover new artists.",
+            members: 89,
+            created: "05/09/2023"
+          },
+          {
+            name: "Book Club",
+            isPublic: false,
+            description: "Discuss literature and share reading recommendations.",
+            members: 42,
+            created: "15/10/2023"
+          }
+        ];
+        
+        // Function to render rooms (example implementation)
+        function renderRooms(rooms) {
+          const container = document.getElementById('roomsContainer');
+          
+          rooms.forEach(room => {
+            const roomCard = document.createElement('div');
+            roomCard.className = 'room-card';
+            roomCard.innerHTML = `
+              <div class="room-header">
+                <h3 class="room-name">${room.name}</h3>
+                <span class="room-status ${room.isPublic ? 'status-public' : 'status-private'}">
+                  ${room.isPublic ? 'Public' : 'Private'}
+                </span>
+              </div>
+              <p class="room-description">${room.description}</p>
+              <div class="room-footer">
+                <div class="room-members">
+                  <i class="fas fa-users"></i> ${room.members} online
+                </div>
+                <div class="room-date">Created: ${room.created}</div>
+              </div>
+            `;
+            
+            container.appendChild(roomCard);
+          });
+        }
+        
+        // In a real application, you would fetch rooms from an API
+        // For now, we'll just use the static rooms already in the HTML
+      });
+    </script>
   </body>
 </html>
