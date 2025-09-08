@@ -1,39 +1,422 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no,">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>chatapp | register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body class="bg-dark text-white">
-    <div class="container-fluid">
-      <div class="container border mt-5 rounded pb-5">
-        <div>
-          <img src="../asset/images/message_icon.png" alt="message icon" class="img-fluid w-25">
-        <h1 class="text-center"> Register </h1>
+    <title>ChatApp | Register</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4e6fff;
+            --secondary: #8a63d2;
+            --dark: #121826;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --error: #dc3545;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a243a 100%);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+        
+        .register-container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .register-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(78, 111, 255, 0.4);
+        }
+        
+        .app-icon i {
+            font-size: 35px;
+            color: white;
+        }
+        
+        h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .form-control {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(78, 111, 255, 0.2);
+            color: white;
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .input-group-text {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(78, 111, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(78, 111, 255, 0.6);
+        }
+        
+        .register-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .register-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .register-footer a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        
+        .password-toggle {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+        
+        .password-strength {
+            height: 5px;
+            margin-top: 0.5rem;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .password-rules {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .password-rules ul {
+            padding-left: 1.2rem;
+            margin-bottom: 0;
+        }
+        
+        .rule-valid {
+            color: var(--success);
+        }
+        
+        .rule-invalid {
+            color: var(--error);
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .register-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .register-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="register-container">
+            <div class="register-card">
+                <div class="text-center mb-4">
+                    <div class="app-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h1>Create Account</h1>
+                </div>
+                
+                <form method="POST" action="/register" id="form">
+                    <div class="mb-4">
+                        <label for="name" class="form-label">Full Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
+                            <span class="input-group-text password-toggle" id="passwordToggle">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                        
+                        <div class="password-strength mt-2">
+                            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                        </div>
+                        
+                        <div class="password-rules">
+                            <p>Password must contain:</p>
+                            <ul>
+                                <li id="rule-length" class="rule-invalid">At least 8 characters</li>
+                                <li id="rule-uppercase" class="rule-invalid">One uppercase letter</li>
+                                <li id="rule-lowercase" class="rule-invalid">One lowercase letter</li>
+                                <li id="rule-number" class="rule-invalid">One number</li>
+                                <li id="rule-special" class="rule-invalid">One special character</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="message" class="form-text mt-2"></div>
+                    </div>
+                    
+                    <div class="mb-4 form-check">
+                        <input type="checkbox" class="form-check-input" id="terms" required>
+                        <label class="form-check-label" for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="submit">
+                        <i class="fas fa-user-plus me-2"></i>Create Account
+                    </button>
+                    
+                    <div class="register-footer">
+                        <p>Already have an account? <a href="../login">Sign in here</a></p>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form method="POST" action="/register" id="form">
-          <div class="mb-3">
-            <label for="username" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-            <div id="message" class="form-text"> </div>          </div>
-          <button type="submit" class="btn btn-primary m-auto d-block" id="submit">Register</button>
-          <p class="text-center mt-3">Already have an account? <a href="../login">Login</a></p>
-        </form>
-      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-      </script>
-    <script src="../asset/js/register.js"></script>
-  </body>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Password visibility toggle
+        document.getElementById('passwordToggle').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+        
+        // Password strength checker
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('passwordStrengthBar');
+            const messageElement = document.getElementById('message');
+            
+            // Reset rules
+            document.getElementById('rule-length').className = 'rule-invalid';
+            document.getElementById('rule-uppercase').className = 'rule-invalid';
+            document.getElementById('rule-lowercase').className = 'rule-invalid';
+            document.getElementById('rule-number').className = 'rule-invalid';
+            document.getElementById('rule-special').className = 'rule-invalid';
+            
+            // Check password strength
+            let strength = 0;
+            
+            // Length check
+            if (password.length >= 8) {
+                strength += 20;
+                document.getElementById('rule-length').className = 'rule-valid';
+            }
+            
+            // Uppercase check
+            if (/[A-Z]/.test(password)) {
+                strength += 20;
+                document.getElementById('rule-uppercase').className = 'rule-valid';
+            }
+            
+            // Lowercase check
+            if (/[a-z]/.test(password)) {
+                strength += 20;
+                document.getElementById('rule-lowercase').className = 'rule-valid';
+            }
+            
+            // Number check
+            if (/[0-9]/.test(password)) {
+                strength += 20;
+                document.getElementById('rule-number').className = 'rule-valid';
+            }
+            
+            // Special character check
+            if (/[^A-Za-z0-9]/.test(password)) {
+                strength += 20;
+                document.getElementById('rule-special').className = 'rule-valid';
+            }
+            
+            // Update strength bar
+            strengthBar.style.width = strength + '%';
+            
+            // Set color based on strength
+            if (strength < 40) {
+                strengthBar.style.backgroundColor = '#dc3545'; // Red
+                messageElement.textContent = 'Weak password';
+                messageElement.style.color = '#dc3545';
+            } else if (strength < 80) {
+                strengthBar.style.backgroundColor = '#ffc107'; // Yellow
+                messageElement.textContent = 'Medium password';
+                messageElement.style.color = '#ffc107';
+            } else {
+                strengthBar.style.backgroundColor = '#28a745'; // Green
+                messageElement.textContent = 'Strong password';
+                messageElement.style.color = '#28a745';
+            }
+        });
+        
+        // Form validation
+        document.getElementById('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const terms = document.getElementById('terms').checked;
+            const messageElement = document.getElementById('message');
+            
+            // Simple validation
+            if (!name || !email || !password) {
+                messageElement.textContent = 'Please fill in all fields';
+                messageElement.style.color = 'red';
+                return;
+            }
+            
+            // Name validation
+            if (name.length < 2) {
+                messageElement.textContent = 'Please enter a valid name';
+                messageElement.style.color = 'red';
+                return;
+            }
+            
+            // Email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                messageElement.textContent = 'Please enter a valid email address';
+                messageElement.style.color = 'red';
+                return;
+            }
+            
+            // Password strength validation
+            const strength = document.getElementById('passwordStrengthBar').style.width;
+            if (parseInt(strength) < 80) {
+                messageElement.textContent = 'Please use a stronger password';
+                messageElement.style.color = 'red';
+                return;
+            }
+            
+            // Terms agreement validation
+            if (!terms) {
+                messageElement.textContent = 'Please agree to the terms and conditions';
+                messageElement.style.color = 'red';
+                return;
+            }
+            
+            // If validation passes, submit the form
+            messageElement.textContent = '';
+            this.submit();
+        });
+    </script>
+</body>
 </html>
