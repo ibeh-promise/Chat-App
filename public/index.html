@@ -1,37 +1,506 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no,">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="descrition" content="This application is a chat app that allows users to communicate with each other.">
-    <meta name="author" content="promise">
-    <meta name="keywords" content="promise, chat, app, chat app, chat application, chat app">
-    <title>chatapp</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/x-icon" href="asset/images/message_icon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Connect instantly with secure messaging - the modern chat app for personal and professional communication">
+    <meta name="author" content="ChatApp Team">
+    <meta name="keywords" content="chat app, messaging, secure communication, group chat">
+    <title>ChatApp - Connect Instantly</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+      :root {
+        --primary: #4e6fff;
+        --secondary: #8a63d2;
+        --dark: #121826;
+        --light: #f8f9fa;
+        --gray: #6c757d;
+      }
+      
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, var(--dark) 0%, #1a243a 100%);
+        color: var(--light);
+        overflow-x: hidden;
+      }
+      
+      .navbar {
+        background: rgba(18, 24, 38, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .hero-section {
+        padding: 7rem 0 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+      
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        opacity: 0.2;
+        background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      }
+      
+      .app-icon {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(145deg, var(--primary), var(--secondary));
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        box-shadow: 0 10px 30px rgba(78, 111, 255, 0.4);
+      }
+      
+      .app-icon i {
+        font-size: 45px;
+        color: white;
+      }
+      
+      h1, h2, h3, h4, h5 {
+        font-weight: 700;
+      }
+      
+      .lead {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .btn-primary {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        border: none;
+        border-radius: 50px;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(78, 111, 255, 0.4);
+        transition: all 0.3s ease;
+      }
+      
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(78, 111, 255, 0.6);
+      }
+      
+      .btn-outline-light {
+        border-radius: 50px;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      
+      .btn-outline-light:hover {
+        background: white;
+        color: var(--dark);
+      }
+      
+      .feature-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 2rem;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+      
+      .feature-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(145deg, var(--primary), var(--secondary));
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      .feature-icon i {
+        font-size: 30px;
+        color: white;
+      }
+      
+      .testimonial-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .testimonial-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--primary);
+      }
+      
+      .stats-number {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      
+      .footer {
+        background: rgba(18, 24, 38, 0.95);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 4rem 0 2rem;
+      }
+      
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        margin-right: 0.5rem;
+        transition: all 0.3s ease;
+      }
+      
+      .social-icon:hover {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        transform: translateY(-3px);
+      }
+      
+      /* Animation */
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+      
+      .floating {
+        animation: float 5s ease-in-out infinite;
+      }
+    </style>
   </head>
-  <body class="bg-dark text-white">
-    <div class="container-fluid">
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
       <div class="container">
-        <img src="asset/images/message_icon.png" alt="message icon" class="img-fluid">
-
-        <h1 class="text-center mt-5"> Chat App </h1>
-        <p class="text-center">
-          Communication is the solvent of all problems and is the foundation for personal development.</p>
-
-
-      </div>
-          <div class="container">
-            <div class="d-flex justify-content-around align-items-center">
-              <div class=""><a href="./login/" class="btn btn-primary" id="join-btn">Login</a></div>
-              <div class=""><a href="./register/" class="btn btn-outline-primary" id="create-btn">Register</a></div>
-    </div>
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <div class="app-icon me-2" style="width: 40px; height: 40px; border-radius: 10px;">
+            <i class="fas fa-comments"></i>
           </div>
-    </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
-        <script src="../asset/js/index.js"></script>
+          <span class="fw-bold">ChatApp</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item ms-2 d-none d-lg-block">
+              <a href="./login/" class="btn btn-primary">Login</a>
+            </li>
+            <li class="nav-item ms-2 d-none d-lg-block">
+              <a href="./register/" class="btn btn-outline-light">Register</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-bg"></div>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 hero-content">
+            <div class="app-icon floating">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h1 class="display-4 fw-bold mb-4">Connect with People Around the World</h1>
+            <p class="lead mb-5">Experience seamless communication with our secure and intuitive chat application. Join millions of users today.</p>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="./register/" class="btn btn-primary btn-lg">Get Started Free</a>
+              <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+            </div>
+          </div>
+          <div class="col-lg-6 d-none d-lg-block">
+            <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" class="img-fluid rounded shadow" alt="Chat App Interface" style="transform: perspective(800px) rotateY(-15deg); border: 1px solid rgba(255,255,255,0.1)">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-md-3 col-6 mb-4">
+            <div class="stats-number">10M+</div>
+            <p>Active Users</p>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="stats-number">100+</div>
+            <p>Countries</p>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="stats-number">99.9%</div>
+            <p>Uptime</p>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="stats-number">24/7</div>
+            <p>Support</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+      <div class="container">
+        <div class="row text-center mb-5">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="fw-bold mb-3">Powerful Features</h2>
+            <p class="lead">Discover why millions choose our platform for their communication needs</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <div class="feature-icon mx-auto">
+                <i class="fas fa-lock"></i>
+              </div>
+              <h4 class="text-center">End-to-End Encryption</h4>
+              <p class="text-center">Your conversations are private and secure with military-grade encryption.</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <div class="feature-icon mx-auto">
+                <i class="fas fa-users"></i>
+              </div>
+              <h4 class="text-center">Group Chats</h4>
+              <p class="text-center">Connect with multiple people at once with our advanced group chat features.</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <div class="feature-icon mx-auto">
+                <i class="fas fa-share-alt"></i>
+              </div>
+              <h4 class="text-center">File Sharing</h4>
+              <p class="text-center">Share images, documents, and other files seamlessly during conversations.</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <div class="feature-icon mx-auto">
+                <i class="fas fa-video"></i>
+              </div>
+              <h4 class="text-center">Video Calls</h4>
+              <p class="text-center">High-quality video calls with screen sharing capabilities.</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <div class="feature-icon mx-auto">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <h4 class="text-center">Cross-Platform</h4>
+              <p class="text-center">Available on web, iOS, and Android devices. Sync across all platforms.</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="feature-card">
+              <div class="feature-icon mx-auto">
+                <i class="fas fa-robot"></i>
+              </div>
+              <h4 class="text-center">AI Assistant</h4>
+              <p class="text-center">Get smart suggestions and automated responses with our AI technology.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5 bg-dark">
+      <div class="container">
+        <div class="row text-center mb-5">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="fw-bold mb-3">What Our Users Say</h2>
+            <p class="lead">Join thousands of satisfied users worldwide</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center mb-3">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="testimonial-img me-3">
+                <div>
+                  <h5 class="mb-0">Michael Chen</h5>
+                  <small class="text-muted">Software Engineer</small>
+                </div>
+              </div>
+              <p class="mb-0">"The best chat app I've ever used. The encryption gives me peace of mind for business conversations."</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center mb-3">
+                <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="testimonial-img me-3">
+                <div>
+                  <h5 class="mb-0">Sarah Johnson</h5>
+                  <small class="text-muted">Marketing Director</small>
+                </div>
+              </div>
+              <p class="mb-0">"Our team collaboration improved dramatically after switching to this platform. File sharing is seamless!"</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center mb-3">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="testimonial-img me-3">
+                <div>
+                  <h5 class="mb-0">David Wilson</h5>
+                  <small class="text-muted">Freelancer</small>
+                </div>
+              </div>
+              <p class="mb-0">"I love the clean interface and how easy it is to connect with clients across different time zones."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="fw-bold mb-4">Ready to Get Started?</h2>
+            <p class="lead mb-5">Join millions of users today and experience the future of communication</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+              <a href="./register/" class="btn btn-primary btn-lg">Create Account</a>
+              <a href="./login/" class="btn btn-outline-light btn-lg">Sign In</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="app-icon me-2" style="width: 40px; height: 40px; border-radius: 10px;">
+                <i class="fas fa-comments"></i>
+              </div>
+              <span class="fw-bold">ChatApp</span>
+            </div>
+            <p>Connecting people through seamless and secure communication since 2023.</p>
+            <div class="d-flex">
+              <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 mb-4">
+            <h5>Product</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-decoration-none text-muted">Features</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Pricing</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Security</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Downloads</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-md-4 mb-4">
+            <h5>Company</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-decoration-none text-muted">About</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Careers</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">News</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-md-4 mb-4">
+            <h5>Support</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-decoration-none text-muted">Help Center</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Community</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Status</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Report a Bug</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-md-4 mb-4">
+            <h5>Legal</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-decoration-none text-muted">Privacy</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Terms</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Cookies</a></li>
+              <li><a href="#" class="text-decoration-none text-muted">Licenses</a></li>
+            </ul>
+          </div>
+        </div>
+        <hr class="my-4 bg-secondary">
+        <div class="row">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <p class="mb-0">&copy; 2023 ChatApp. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> for better communication</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+      // Add navbar background on scroll
+      window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+          navbar.style.background = 'rgba(18, 24, 38, 0.95)';
+          navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+        } else {
+          navbar.style.background = 'rgba(18, 24, 38, 0.95)';
+          navbar.style.boxShadow = 'none';
+        }
+      });
+    </script>
   </body>
 </html>
